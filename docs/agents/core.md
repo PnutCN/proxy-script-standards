@@ -28,6 +28,14 @@
 - 只改要改的字段，**不重排、不删字段**：客户端按固定字段渲染，缺字段就是空白。
 - 列表接口返回数组、详情接口通常返回对象，不要把形状套错。
 
+## 1.5 先取证，再写规则
+
+**官方文档是分页的：某一页没写 ≠ 那个字段不存在。**
+
+- 查字段/参数，先看全站目录（Surge 是 `https://manual.nssurge.com/llms.txt`），别只看一页；`module.html` 的「元数据」段只列了 6 个字段，而 `tools/cli.html`、`tools/http-api.html` 里有 `#!version`、`#!category` 和「header 包含 Surge 不解释的 author/homepage/version」。
+- 写得出来就能测的就测：本地放一份 `.sgmodule` + `surge-cli module list --raw` 一分钟就能验证元数据是否被解析，比读三页文档还准。
+- 结论分三档，写清楚是哪一档：官方文档写了 / 官方工具实测出现 / 只是社区代码里见过。**别把「我没在文档里看到」写成「官方没有」。**
+
 ## 2. `$done()` 只能调用一次
 
 - Surge / QX / Loon / Stash / LanceX / Shadowrocket 都是「调用一次即提交并释放资源」✅
