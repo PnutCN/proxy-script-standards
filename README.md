@@ -7,9 +7,21 @@
 
 ## 怎么用
 
-- **AI agent**：先读 [AGENTS.md](AGENTS.md)，它只做索引，按需再读具体文件。
-- **人类**：直接进 [docs/agents/](docs/agents/)，从 `core.md` 和 `versioning.md` 开始。
-- **写某个端的模块/插件**：读 `clients/<端>.md`，里面是元数据字段、脚本声明写法、可覆盖段、已知坑。
+按需求直接跳到对应文件，别一次全读：
+
+| 我要做的事 | 读这个 |
+|---|---|
+| 写/改请求改写脚本（任何端） | [docs/agents/core.md](docs/agents/core.md) |
+| 版本号、分类标签、模块详情字段 | [docs/agents/versioning.md](docs/agents/versioning.md) |
+| 某端有没有某个 API、参数怎么传 | [docs/agents/api-matrix.md](docs/agents/api-matrix.md) |
+| pattern 写法、模块能改什么、MITM | [docs/agents/rules-and-regex.md](docs/agents/rules-and-regex.md) |
+| 交付前验证、发布后校验 | [docs/agents/testing.md](docs/agents/testing.md) |
+| 托管、自动更新、一键导入 | [docs/agents/distribution.md](docs/agents/distribution.md) |
+| 一份脚本多端跑 | [docs/agents/env-lib.md](docs/agents/env-lib.md) |
+| 写某个端的模块/插件 | [docs/agents/clients/](docs/agents/clients/) |
+| 某条规则的出处 | [docs/agents/sources.md](docs/agents/sources.md) |
+
+> 给 AI agent 的根索引文件（`AGENTS.md`）由仓库所有者本地添加；它的内容就是上面的分流表 + 三条铁律，不必额外维护一份。
 
 ## 目录
 
