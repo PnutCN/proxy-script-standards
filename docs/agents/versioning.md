@@ -1,14 +1,14 @@
 # 版本号、分类标签与模块详情
 
-> scope: 所有端 ｜ 触发: 发版、改模块元数据、写 README 模块表 ｜ 上游: 各端元数据文档（sources.md）｜ 复核: 2026-11-24
+> scope: 所有端 ｜ 触发: 发版、改模块元数据、写 README 模块表 ｜ 上游: manual.nssurge.com/tools/cli.html、tools/http-api.html（Surge 侧已实测）｜ 复核: 2026-11-25
 
 > 适用：所有端。最后核对：2026-11-24。出处见 `sources.md`。
 
-## 1. 没有一个客户端有 version 字段
+## 1. 各端的版本字段实况（实测 + 官方文档）
 
 | 端 | 官方支持的元数据 | 有版本字段吗 |
 |---|---|---|
-| Surge | `#!name` `#!desc` `#!system` `#!arguments` `#!arguments-desc` `#!requirement` ✅ | 无 |
+| Surge | `#!name` `#!desc` `#!system` `#!arguments` `#!arguments-desc` `#!requirement`，另有 **`#!version`**、`#!category`、`#!author`、`#!homepage` ✅实测 | **有**：`surge-cli module list` 会显示 `#!version`（iOS 6.0.0+ / Mac 6.11.0+）；`/v1/modules` 返回 `category` 与完整 header |
 | Shadowrocket | `#!name` `#!desc` `#!arguments` `#!arguments-desc` ✅ | 无 |
 | Loon | `#!name` `#!desc` `#!author` `#!homepage` `#!icon` `#!system` `#!system_version` `#!loon_version` `#!tag` `#!type` ✅ | 无（`#!loon_version` 是**最低 Loon 版本要求**，不是自身版本） |
 | Egern | YAML：`name` `description` `author` `homepage` `manual` `icon` `open_url` `compat_arguments` `compat_arguments_desc` `env_schema` ✅ | 无 |
@@ -17,7 +17,10 @@
 | LanceX | 模块/脚本文件，见 clients/lancex.md | 无 |
 | ProxyPin | 只有脚本名（`context.scriptName`）✅ | 无 |
 
-**结论：版本号只能写在描述/注释/URL 查询串里。** 任何声称 `#!version=` 的写法都是自造字段。
+**结论：**
+- **Surge 有 `#!version`**，而且 `#!category` 是真的分类字段——在 Surge Mac 6.12.0 上实测：模块头写 `#!version=9.9.9` + `#!category=#🥜PInaTe`，`surge-cli module list --raw` 返回 `"category": "#🥜PInaTe"`，header 里保留 `version/author/homepage/system`。旧版手册的「元数据」段只列了 name/desc/system/arguments/requirement，漏了这几个，别据此认为它们不存在。
+- 其余端（Shadowrocket / QX / Loon / Stash / Egern / LanceX / ProxyPin）确实没有版本字段（Loon 的 `#!loon_version` 是**最低 Loon 版本要求**）。
+- 即使 Surge 认 `#!version`，它也**不参与更新判断**：`script-update-interval` 管脚本拉取，模块本体更新永远是手动动作。所以 `?v=` 查询串仍然要给，作用是绕 CDN 缓存。
 
 ## 2. 我们的版本号规范（SemVer）
 
@@ -40,7 +43,7 @@
 
 | 端 | 写法 |
 |---|---|
-| Surge | 头部：`#!desc=… v1.8.0` + 独立注释行 `# 版本: v1.8.0`；每条 `script-path` 加 `?v=1.8.0` |
+| Surge | 头部：`#!version=1.8.0`（客户端可见）+ `#!desc=… v1.8.0` + 注释行 `# 版本: v1.8.0`；每条 `script-path` 加 `?v=1.8.0` |
 | Shadowrocket | 同 Surge（`#!desc` 带版本 + `?v=`） |
 | Loon | `#!desc=… v1.8.0`；脚本引用处加 `?v=`；`#!loon_version` 只写最低版本要求 |
 | Egern | `description: "… v1.8.0"`；`scriptings[].script_url` 加 `?v=` |
@@ -57,7 +60,8 @@
 |---|---|---|
 | Loon | `#!tag` ✅ | 逗号分隔，如 `#!tag = 去广告,工具` |
 | Egern | 无 tag 字段 ✅ | 用 `name`/`description` 表达；分类放在仓库目录 |
-| Surge / Shadowrocket | **无官方 tag 字段** ✅ | 社区普遍写 `#!category=` 🟡（文档未列，是否被客户端解析未验证 ⚠️），可作为仓库侧的分类信号 |
+| Surge | `#!category` ✅实测 | 模块分类，`/v1/modules` 的 `category` 字段即来自它；值可以带 `#`（实测 `#!category=#🥜PInaTe` 原样返回） |
+| Shadowrocket | 文档未列 `#!category` ⚠️ | 写了也只是 header 备注，未验证是否解析 |
 | Stash / QX / LanceX / ProxyPin | 无 ✅ | 分类放在仓库目录 / README 表格 |
 
 约定：**分类标签只用于仓库组织与人类检索，不承担功能语义**。仓库固定五个一级分类：

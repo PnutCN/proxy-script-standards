@@ -2,7 +2,7 @@
 
 > scope: 全部出处 ｜ 触发: 需要核实某条规则的依据 ｜ 复核: 2026-11-24
 
-> 所有规则的最后核对日期：**2026-11-24**。改规范时请同步更新这里的日期与出处。
+> 所有规则的最后核对日期：**2026-11-25**（Surge 元数据字段一栏为实测）。改规范时请同步更新这里的日期与出处。
 
 ## 客户端
 
@@ -11,6 +11,8 @@
 | Surge | https://manual.nssurge.com/profile/module.html | 模块可覆盖段、`%APPEND%`/`%INSERT%`、元数据、`#!arguments`、`#!requirement`、参数占位 | ✅ |
 | Surge | https://manual.nssurge.com/scripting/overview.html 及 `scripting/*.html` | 脚本类型（http-request/http-response/cron/dns/event/generic/rule）与 API | ✅ |
 | Surge | https://manual.nssurge.com/llms.txt | 全站 markdown 索引，适合 agent 批量读 | ✅ |
+| Surge | https://manual.nssurge.com/tools/cli.html | `surge-cli module list` 显示 `#!version`；`module show` 列出全部 `#!` 头字段（含不解释的 `#!author`、`#!homepage`） | ✅ |
+| Surge | https://manual.nssurge.com/tools/http-api.html | `GET /v1/modules` 返回 `category` 与完整 header（"including fields Surge does not interpret"） | ✅ |
 | Shadowrocket | https://github.com/free-nodes/shadowrocket/blob/main/docs/shadowrocket_manual.md | `[Script]` 类型、`engine`、模块 `%APPEND%`、`#!arguments`、NE 内存限制 | ✅ |
 | Quantumult X | https://github.com/crossutility/Quantumult-X | 官方示例脚本、`filter.snippet` 规则语法 | ✅ |
 | Quantumult X | https://doc.repcz.link/quantumultx/http-js/ | `[task_local]` 格式、`$task.fetch`、`$environment.sourcePath`、`$iCloud` | ✅ |
@@ -34,6 +36,24 @@
 | https://wiki.surge.community | 中文 Surge 社区 wiki（模块/规则入门） |
 | https://agents.md | AGENTS.md 的格式规范（本仓库根文件遵循它） |
 
+## 实测记录（Surge Mac 6.12.0，2026-11-25）
+
+在 iCloud 的 Surge 配置目录放一个本地模块，头部写 `#!version=9.9.9`、`#!category=#🥜PInaTe`、`#!author=agent`、`#!homepage=…`、`#!system=mac`，然后：
+
+```bash
+surge-cli module list --raw | jq '.modules[] | select(.name=="AGENT-TEST-meta")'
+```
+
+返回：
+
+```json
+{"category": "#🥜PInaTe",
+ "header": {"category":"#🥜PInaTe","author":"agent","system":"mac","version":"9.9.9","homepage":"…","name":"AGENT-TEST-meta","desc":"…"},
+ "type":"local","sections":{"Rule":1}}
+```
+
+结论：`#!category` 会被解析成模块分类（带 `#` 也原样保留），`#!version` 被保留且 CLI 可显示；`#!author`/`#!homepage` 只是原样留在 header 里。测试文件用完已删除。
+
 ## 实证样本（社区模块的实际写法）
 
 | 仓库 | 观察到的字段 |
@@ -42,5 +62,5 @@
 | Keywos/rule | `#!category=`，`#!desc` 里写日期（如 `2023.3.17`） |
 | fmz200/wool_scripts | `#!author=` `#!category=` `#!homepage=` `#!raw-url=`（均非官方字段） |
 
-结论：**跨端都没有版本字段**，社区的 `#!category` / `#!author` / `#!raw-url` 属于事实约定，不要当成功能字段依赖 ⚠️。
+结论：`#!category` / `#!author` / `#!homepage` 在 Surge 里是**真实字段**（见上方实测），不是社区臆造；`#!raw-url` 只是作者自用标记，Surge 会原样留在 header 里但不会使用。
 
