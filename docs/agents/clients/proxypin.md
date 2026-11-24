@@ -1,5 +1,7 @@
 # ProxyPin
 
+> scope: proxypin ｜ 触发: 改该端的模块/插件/脚本 ｜ 复核: 2026-11-24
+
 > 官方 wiki：https://github.com/wanghongenpin/proxypin/wiki/脚本 ｜ 最后核对：2026-11-24
 
 ProxyPin 是**抓包工具**，不是代理客户端。它的脚本模型和 `$done` 那套完全不同，别混用。
@@ -43,3 +45,4 @@ async function onResponse(context, request, response) { /* 改响应 */ return r
 - 只在 `onResponse` 里改 body，改完 `return response`；不想改就原样返回。
 - 请求阶段要「拦截」就 `return null`，注意这会直接中断，别在调试分支里误返回 null。
 - 移动端写文件前先建目录，路径用 `getApplicationSupportDirectory()` 拼接。
+

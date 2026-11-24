@@ -1,5 +1,7 @@
 # Surge
 
+> scope: surge ｜ 触发: 改该端的模块/插件/脚本 ｜ 复核: 2026-11-24
+
 > 官方文档：https://manual.nssurge.com ｜ 全站 markdown 索引：`/llms.txt` ｜ 最后核对：2026-11-24
 
 ## 复用单元
@@ -44,3 +46,4 @@ mem-card-list = type=http-response,pattern=^https?://api\.example\.com/v1/user,r
 ## 一键导入 ✅
 
 `surge:///install-module?url=<percent-encoded 模块URL>`；Mac 6.7.0+ 也接受 `surgeconfig:///`。
+

@@ -38,6 +38,19 @@ docs/agents/clients/*.md      每个客户端一份
 docs/agents/sources.md        所有文档来源与核对日期
 ```
 
+## 上下文预算
+
+这份规范按「渐进披露」拆文件，不是审美问题，是硬限制：
+
+| 实现 | 限制 | 出处 |
+|---|---|---|
+| agents.md（事实标准） | 无必填字段、无长度上限，scope 靠目录位置 | https://agents.md |
+| Codex | 整条 AGENTS.md 链拼接后受 `project_doc_max_bytes` 限制，默认 32 KiB | https://developers.openai.com/codex/agent-configuration/agents-md |
+| Claude Code | 建议单文件 < 200 行；> 4 MiB 直接跳过；默认读 `CLAUDE.md` 而非 `AGENTS.md` | https://code.claude.com/docs/en/memory |
+| Hermes | git 根 → cwd 逐级合并加载 + 会话中渐进发现子目录；超长会截断（示例：25000 字符只留 14000+4000） | https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files |
+
+所以：根索引只放指路和硬约束，细节全在 `docs/agents/`；用 Claude Code 时加一行 `CLAUDE.md`（内容就 `@AGENTS.md`）即可复用同一套文件。
+
 ## 为什么不是一个大文件
 
 单文件会撑爆 agent 的上下文，也不方便只改一端。这里的做法是**渐进披露**：根文件只放"什么时候读哪个文件"，细节按主题和客户端拆分。

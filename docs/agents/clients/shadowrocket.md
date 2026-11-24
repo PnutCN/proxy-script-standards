@@ -1,5 +1,7 @@
 # Shadowrocket（小火箭）
 
+> scope: shadowrocket ｜ 触发: 改该端的模块/插件/脚本 ｜ 复核: 2026-11-24
+
 > 手册：https://github.com/free-nodes/shadowrocket/blob/main/docs/shadowrocket_manual.md ｜ 最后核对：2026-11-24
 
 ## 复用单元
@@ -44,3 +46,4 @@ hostname = %APPEND% api.example.com
 - 含规则的模块通常只在「全局路由 = 配置」时生效。
 - iOS 15 前 NE 内存上限 15MB、之后 50MB，超了会出现「模块失效 / VPN 自动断开」。
 - 模块启用状态不跨设备同步；iCloud 里自定义参数存在 `Modules/<模块名>.meta`，模块更新不会丢。
+

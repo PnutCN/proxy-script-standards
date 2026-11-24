@@ -1,5 +1,7 @@
 # Quantumult X
 
+> scope: quantumultx ｜ 触发: 改该端的模块/插件/脚本 ｜ 复核: 2026-11-24
+
 > 官方仓库：https://github.com/crossutility/Quantumult-X ｜ 中文文档站：https://doc.repcz.link/quantumultx/ ｜ 最后核对：2026-11-24
 
 ## 没有模块
@@ -45,3 +47,4 @@ QX 没有「模块」概念，能力靠两段配置：`[rewrite_local]`（改写
 
 - 没有模块 → 版本号只能写在脚本注释和 URL 的 `?v=` 里。
 - `auto-cookie` 默认值在 build 934 变过一次，依赖 Cookie 的脚本要显式开。
+

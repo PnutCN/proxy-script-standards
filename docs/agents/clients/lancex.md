@@ -1,5 +1,7 @@
 # LanceX
 
+> scope: lancex ｜ 触发: 改该端的模块/插件/脚本 ｜ 复核: 2026-11-24
+
 > 官方文档：https://shadowboat.app/lancexapp/zh/scripting/ ｜ 最后核对：2026-11-24
 
 ## Script API ✅
@@ -24,3 +26,4 @@
 ## 建议写法
 
 与 Surge 同构：`$done` + `$request`/`$response` + `$persistentStore` + `$httpClient`，所以从 Surge 脚本移植成本低；差异主要在通知的第 4 个参数和 `$lancex`。
+

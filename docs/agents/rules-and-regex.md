@@ -1,5 +1,7 @@
 # pattern、规则与 MITM
 
+> scope: 所有端 ｜ 触发: 写 pattern、判断模块能改什么、配 MITM ｜ 复核: 2026-11-24
+
 > 最后核对：2026-11-24。
 
 ## 1. URL 匹配
@@ -50,3 +52,4 @@ Surge 模块里写规则时：只能用内置策略（`DIRECT` / `REJECT` / `REJ
 
 - QX 过滤语法：`host-suffix, example.com, proxy` / `ip-cidr, 10.0.0.0/8, direct` / `geoip, cn, direct` / `final, proxy` ✅
 - 同一份规则要用在多个端，先过转换器（Script-Hub 支持 QX/Surge/Loon/Shadowrocket/Clash 规则集互转）✅，再人工复核策略名是否在该端已定义。
+

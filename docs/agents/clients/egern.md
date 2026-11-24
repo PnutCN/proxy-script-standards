@@ -1,5 +1,7 @@
 # Egern
 
+> scope: egern ｜ 触发: 改该端的模块/插件/脚本 ｜ 复核: 2026-11-24
+
 > 官方文档：https://egernapp.com/zh-CN/docs/configuration/modules ｜ https://egernapp.com/zh-CN/docs/configuration/scriptings ｜ 最后核对：2026-11-24
 
 ## 复用单元
@@ -58,3 +60,4 @@ scriptings:
 ## 模块引用配置 ✅
 
 主配置里 `modules:` 每项支持 `name` / `url`（必填）/ `compat_arguments` / `env` / `update_interval`（默认 86400）/ `enabled`。
+

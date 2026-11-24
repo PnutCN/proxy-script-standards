@@ -1,5 +1,7 @@
 # Env.js：跨端脚本库
 
+> scope: 跨端（Env.js）｜ 触发: 一份脚本要跑多个端 ｜ 复核: 2026-11-24
+
 > 最后核对：2026-11-24。库地址：`github.com/chavyleung/scripts`（`Env.js` / `Env.min.js`，单文件、无依赖、约 30KB）🟡
 
 ## 1. 它解决什么
@@ -53,3 +55,4 @@ $.http.get({ url: 'https://api.example.com/x', timeout: 5000 })
 
 - 需要更现代的实现时看 `github.com/nsnanocat/util`（同类思路，社区小体量）⚠️ 未逐条核对 API。
 - 跨端格式互转（不含运行时封装）用 Script-Hub：支持 QX / Loon / Surge / Stash / Egern / LanceX / Shadowrocket ✅。
+

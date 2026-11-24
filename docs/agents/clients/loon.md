@@ -1,5 +1,7 @@
 # Loon
 
+> scope: loon ｜ 触发: 改该端的模块/插件/脚本 ｜ 复核: 2026-11-24
+
 > 官方文档：https://nsloon.app/docs ｜ 最后核对：2026-11-24
 
 ## 复用单元
@@ -66,3 +68,4 @@ response if ${url} ~= /\/api\// && ${response.status} == 200 then script("x.js")
 ## MITM ✅
 
 段名是 `[Mitm]`（不是 `[MITM]`）。
+
